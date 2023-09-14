@@ -26,6 +26,14 @@ class BlogsService {
         AppState.blogs.unshift(newBlog)
         return newBlog
     }
+
+    async deleteBlog(blogId) {
+        await api.delete(`api/blogs/${blogId}`)
+        let indexToRemove = AppState.blogs.findIndex(blog => blog.id == blogId)
+        if (indexToRemove >= 0) {
+            AppState.blogs.splice(indexToRemove, 1)
+        }
+    }
 }
 
 export const blogsService = new BlogsService

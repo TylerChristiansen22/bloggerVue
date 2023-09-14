@@ -14,8 +14,8 @@
                 <div class="col-3">
                     <img class="img-sizing p-0 rounded" :src="blog.imgUrl" :alt="blog.title">
                 </div>
-                <div v-if="blogs.creatorId == account.id">
-                    <button class="btn btn-danger">Delete Post</button>
+                <div v-if="blog.creatorId == account.id">
+                    <button @click="deleteBlog" class="btn btn-danger">Delete Post</button>
                 </div>
             </div>
         </div>
@@ -28,12 +28,24 @@ import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { Blog } from '../models/Blog.js';
 import { RouterLink } from 'vue-router';
+import Pop from '../utils/Pop.js';
+import { blogsService } from '../services/BlogsService.js';
 export default {
     props: { blog: { type: Blog, required: true } },
-    setup() {
+    setup(props) {
         return {
             account: computed(() => AppState.account),
-            blogs: computed(() => AppState.blogs)
+            async deleteBlog() {
+                try {
+                    if (await Pop.confirm('Are you sure you want to delete this blog post?')) {
+                        const blogId = props.blog.id
+                        await blogsService.deleteBlog(blogId)
+                        Pop.success('Deleted Blog!')
+                    }
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
         };
     },
     components: { RouterLink }
