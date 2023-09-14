@@ -1,5 +1,7 @@
 <template>
-  <BlogForm />
+  <div v-if="account">
+    <BlogForm />
+  </div>
   <div v-for="blog in blogs" :key="blog.id">
     <BlogCard :blog="blog" />
   </div>
@@ -26,7 +28,8 @@ export default {
       }
     }
     return {
-      blogs: computed(() => AppState.blogs)
+      blogs: computed(() => AppState.blogs),
+      account: computed(() => AppState.account)
     };
   },
 }

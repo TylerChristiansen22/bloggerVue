@@ -14,6 +14,9 @@
                 <div class="col-3">
                     <img class="img-sizing p-0 rounded" :src="blog.imgUrl" :alt="blog.title">
                 </div>
+                <div v-if="blogs.creatorId == account.id">
+                    <button class="btn btn-danger">Delete Post</button>
+                </div>
             </div>
         </div>
     </section>
@@ -28,7 +31,10 @@ import { RouterLink } from 'vue-router';
 export default {
     props: { blog: { type: Blog, required: true } },
     setup() {
-        return {};
+        return {
+            account: computed(() => AppState.account),
+            blogs: computed(() => AppState.blogs)
+        };
     },
     components: { RouterLink }
 };
