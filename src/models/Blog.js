@@ -10,6 +10,6 @@ export class Blog {
         this.creatorId = data.creatorId
         this.creator = data.creator
         this.id = data.id
-        this.createdAt = data.tags.createdAt
+        this.createdAt = new Date(data.createdAt).toLocaleDateString()
     }
 }

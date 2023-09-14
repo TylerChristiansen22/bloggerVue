@@ -1,4 +1,5 @@
 <template>
+  <BlogForm />
   <div v-for="blog in blogs" :key="blog.id">
     <BlogCard :blog="blog" />
   </div>

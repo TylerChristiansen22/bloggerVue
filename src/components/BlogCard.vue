@@ -3,10 +3,10 @@
         <div class="col-10 card bg-primary text-dark my-2 elevation-2 overflow">
             <div class="row">
                 <div class="col-9">
-                    <!-- <RouterLink> -->
-                    <img class="profile-pic" :src="blog.creator.picture" :alt="blog.creator.name">
-                    <p>{{ blog.creator.name }}</p>
-                    <!-- </RouterLink> -->
+                    <RouterLink :to="{ name: 'Profile', params: { profileId: blog.creatorId } }">
+                        <img class="profile-pic" :src="blog.creator.picture" :alt="blog.creator.name">
+                        <p>{{ blog.creator.name }}</p>
+                    </RouterLink>
                     <p>{{ blog.title }}</p>
                     <p>{{ blog.body }}</p>
                     <p>{{ blog.createdAt }}</p>
